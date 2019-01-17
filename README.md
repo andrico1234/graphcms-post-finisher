@@ -67,7 +67,7 @@ And the data model for the `team member`:
   name: String,
   profilePicture: Asset,
   role: Enum,
-  gardenPartyHistory: Date,
+  firstGardenPartyShow: Date,
 }
 ```
 
@@ -75,9 +75,7 @@ And the enum `role` definition:
 
 ```
   {
-    id: String
-    displayName: String,
-    description: String,
+    name: String,
     possibleValues: [String],
   }
 ```
