@@ -35,7 +35,7 @@ const data = [
   {
     name: 'Jaime',
     profilePic: Jaime,
-    role: 'MC',
+    role: 'Host',
     gardenPartyHistory: '12 Months',
   },
   {

@@ -18,6 +18,7 @@ const Event = () => {
           <li>February 23rd</li>
           <li>Garden Party</li>
           <li>London, United Kingdom</li>
+          <li>16+</li>
         </List>
         <Button>Buy Tickets</Button>
       </EventDescription>

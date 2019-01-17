@@ -1,97 +1,105 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's default starter
-</h1>
+# Easily Manage Content with the 3G Stack (Gatsby, GraphQL, GraphCMS)
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+## Todo Sections
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+- Images
+- Pull in information
+- Past/Future
+- Add your own, expand the application to...
 
-## 🚀 Quick start
+## What is the 3G stack? (Not Finished)
 
-1.  **Create a Gatsby site.**
+Gatsby has been increasing in popularity over the last 18 months, in no small party to its ease-of-use in getting an optimised React app working. Initially,Gatsby's philosophy was to create blazing-fast, SEO-friendly static websites, but since then it has become much more than that. As Gatsby's popularity, so has the amount of developers opting to create their blogs, shops and web applications using Gatsby as opposed to other choices, such as Wordpress. When it comes to hadnling external data, the team at Gatsby has opted to use GraphQL, another popular technology taking the dev world by storm. GraphQL is an alternative to the traditional REST API which allow developers to describe the shape of the data they want from an endpoint. This differs from a traditional REST API whose endpoint returns all information associated with that particular endpoint.
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
+## Why GraphCMS (Not Finished)
 
-    ```sh
-    # create a new Gatsby site using the default starter
-    npx gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
-    ```
+There are other solutions we can use when it comes to creating a site that pulls in data from an external source, (alternatives include Contentful, Data in the codebase)
 
-1.  **Start developing.**
+GraphCMS is a headless CMS. (what does this mean, how does this differ from a regular ol' cms). Specifically desinged to be used with graphQL. Which makes it a good choice to use with Gatsby.
 
-    Navigate into your new site’s directory and start it up.
+## Graph data model (Not Finished)
 
-    ```sh
-    cd my-default-starter/
-    gatsby develop
-    ```
+Great for many to many relationships.
 
-1.  **Open the source code and start editing!**
+- talk about the Graph data model.
 
-    Your site is now running at `http://localhost:8000`!
+With Gatsby using GraphQL as its default data fetching technology, it's only sensible to use a CMS that uses a graph data model.
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
+How could a GraphData model relate to us? Recommendation systems.
 
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+Great for referencing other data models. (elaborate on this)
 
-## 🧐 What's inside?
+## What's a Garden Party? (Not Finished)
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
+This isn't an introduction to Gatsby or GraphQL, so I'm assuming a little knowledge of both. This is a tutorial that'll get you understnading the whys and the hows of getting the demo application hooked up to your GraphCMS endpoint.
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
+Before we go and create a schema in GraphCMS, we need to work out exactly how our data looks. When we add a new entry to our team or band list, we're going to want the information to be consistent so our application doesn't come across any unexpected issues.
 
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
+## Creating a project in GraphCMS (Not Finished)
 
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
+Sign up and create a new project
 
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
+choose a name, your region and plan (hint: choose the free plan)
 
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
+The next step is creating the schema for our data. Schemas are a way for us to define the models and enumerations of the data set. A model is an object with one or more fields. For instance, a team member model describes the shape of data for each team member. Enumerations, or enums for short, can also be defined in GraphCMS. Enums are data types whose values must be one from a set of pre-defined values. Think of a team member's job role, as Garden Party's a small enterprise, there may only be 5 different job roles available. By defining what the values can be, we're reducing the capacity for human error when it comes to creating the team member data.
 
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
+So before continuing, have another look at the Garden Party website and write down what you'd expect our event and team member data models will look like. You can have a look at the available data types [here.](https://docs.graphcms.com/developers/schema) Once you've given it a shot, continue the tutorial.
 
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
+Here's the data modal for `event`:
 
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
+```
+{
+  name: String,
+  eventTime: DateTime,
+  houseNumber: String,
+  city: String,
+  postCode: String,
+  minimumAge: Integer,
+  eventDescription: MultiLineText,
+  bandDescription: MultiLineText,
+}
+```
 
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
+And the data model for the `team member`:
 
-9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
+```
+{
+  name: String,
+  profilePicture: Asset,
+  role: Enum,
+  gardenPartyHistory: Date,
+}
+```
 
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
+And the enum `role` definition:
 
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
+```
+  {
+    id: String
+    displayName: String,
+    description: String,
+    possibleValues: [String],
+  }
+```
 
-12. **`README.md`**: A text file containing useful reference information about your project.
+One thing to note is that the enum needs to be defined in of itself. Everything also corresponds nicely with the information we've got defined in our `team.js` and `event.js` files.
 
-## 🎓 Learning Gatsby
+So back in the GraphCMS developer view, click the schema panel in the sidebar and create your first data models for `event` and `team`. Follow the guidelines set above.
 
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
+Assets are served via CDN.
 
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
+(why do I need an API ID?)
 
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
+## Adding GraphCMS into the mix (Not Finished)
 
-## 💫 Deploy
+(gatsby-source-cms)[https://github.com/GraphCMS/gatsby-source-graphcms]
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
+Where are we going to get mock data from?
 
-<!-- AUTO-GENERATED-CONTENT:END -->
+`yarn add gatsby-source-graphcms`
+
+create a `.env` file.
+
+in the `gatsby-config.js` file we need to add en entry in the plugins to add hook up our newly connected endpoint.
+
+x
