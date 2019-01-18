@@ -35,7 +35,7 @@ This isn't an introduction to Gatsby or GraphQL, so I'm assuming a little knowle
 
 Before we go and create a schema in GraphCMS, we need to work out exactly how our data looks. When we add a new entry to our team or band list, we're going to want the information to be consistent so our application doesn't come across any unexpected issues.
 
-## Creating a project in GraphCMS (Not Finished)
+## Creating a project in GraphCMS (Review)
 
 Sign up and create a new project
 
@@ -57,6 +57,7 @@ Here's the data modal for `event`:
   minimumAge: Integer,
   eventDescription: MultiLineText,
   bandDescription: MultiLineText,
+  bandPicture: Asset,
 }
 ```
 
@@ -84,20 +85,32 @@ One thing to note is that the enum needs to be defined in of itself. Everything 
 
 So back in the GraphCMS developer view, click the schema panel in the sidebar and create your first data models for `event` and `team`. Follow the guidelines set above.
 
-Assets are served via CDN.
+Now we need to populate our CMS with some dummy information. With the team members, let's create them exactly as we have them in the frontend. Input the information you as you find it in the `team.js` file. Do the same for the event listings; give a mixture of dates both future and in the past. Sside from that, go crazy qith the names, locations and descriptions. If you're stuck for musicians to create events for, you can find as list of 12 amazing artists (here)[https://open.spotify.com/user/1115584169/playlist/0AbqZRF9xxA1yOoVeUt2bd?si=wWxWLCBVQm-zNLQkf3BijQ]
 
-(why do I need an API ID?)
+Aim to have more than 3 events for both the past and the present.
 
 ## Adding GraphCMS into the mix (Not Finished)
 
-(gatsby-source-cms)[https://github.com/GraphCMS/gatsby-source-graphcms]
+Before we can do anything with the data we just created in GraphCMS, we'll need to install the (gatsby-source-cms)[https://github.com/GraphCMS/gatsby-source-graphcms]. This plugin allows us to modify our `gatsby-config.js` file to pull in our CMS data at compile time, then we can run graphql queries against our compiled data on a per page basis. We won't have to worry about initialising the GraphCMS client either, we'll just add an object to the config file which takes in our endpoint, access token and the initial query. We'll run through getting this setup next.
 
-Where are we going to get mock data from?
+From your command line, run the following: `yarn add gatsby-source-graphcms`
 
-`yarn add gatsby-source-graphcms`
+Move into your `gatsby-config.js` file and within the `plugins` array create a new object with the following information:
 
-create a `.env` file.
+```
+{
+  resolve: 'gatsby-source-graphcms',
+  options: {
+    endpoint: process.env.GRAPH_CMS_ENDPOINT, 
+    token: process.env.GRAPH_CMS_TOKEN,
+    query: '',
+  }
+},
+```
 
-in the `gatsby-config.js` file we need to add en entry in the plugins to add hook up our newly connected endpoint.
+create a `.env` file. add tokens
 
-x
+create the initial query 
+
+## Leveraging your GraphCMS data
+
