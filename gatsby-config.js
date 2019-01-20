@@ -1,3 +1,7 @@
+require('dotenv').config();
+
+const query = require("./gatsby/contentQuery")
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -9,9 +13,9 @@ module.exports = {
     {
       resolve: 'gatsby-source-graphcms',
       options: {
-        endpoint: '',
-        token: '',
-        query: '',
+        endpoint: process.env.GRAPH_CMS_ENDPOINT,
+        token: process.env.GRAPH_CMS_TOKEN,
+        query: query,
       }
     },
     {
