@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { graphql } from 'gatsby'
 
 import BandImage from '../images/band-image.jpg'
 import Button from '../components/Button/button'
@@ -7,7 +8,8 @@ import Layout from '../components/Layout/layout'
 import SEO from '../components/Seo/seo'
 import realFakeText from '../components/RealFakeText/realFakeText'
 
-const Event = () => {
+const Event = ({ data: { event } }) => {
+  console.log('event', event);
   return (
     <Layout>
       <SEO title="event" tags={['music', 'event', 'paulette']} />
@@ -32,6 +34,24 @@ const Event = () => {
 }
 
 export default Event
+
+export const query = graphql`
+  query($id: String!) {
+    event(id: { eq: $id }) {
+      id
+      name
+      eventTime
+      postCode
+      eventDescription
+      minimumAge
+      bandDescription
+      bandPicture {
+        id
+        url
+      }
+    } 
+  }
+`
 
 const Background = styled.div`
   width: 100%;

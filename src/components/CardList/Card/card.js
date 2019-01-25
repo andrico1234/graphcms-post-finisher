@@ -3,14 +3,14 @@ import { Link } from 'gatsby';
 import styled from 'styled-components';
 import Paulette from '../../../images/paulette.jpg';
 
-const Card = () => {
+const Card = ({ data }) => {
   return (
-    <StyledLink to="/event">
+    <StyledLink to={`/event/${data.id}`}>
       <StyledCard>
         <CardImage src={Paulette} />
         <div>
-          <Paragraph>Paulette</Paragraph>
-          <Paragraph>Friday, 6pm</Paragraph>
+          <Paragraph>{data.name}</Paragraph>
+          <Paragraph>{data.eventTime}</Paragraph>
         </div>
       </StyledCard>
     </StyledLink>

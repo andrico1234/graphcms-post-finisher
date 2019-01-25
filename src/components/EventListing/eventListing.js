@@ -3,11 +3,11 @@ import React from 'react'
 import CardList from '../CardList/cardList'
 import SplitButton from '../SplitButton/splitButton'
 
-const EventListing = () => {
+const EventListing = ({ data }) => {
   return (
     <>
       <SplitButton />
-      <CardList />
+      <CardList data={data} />
     </>
   )
 }

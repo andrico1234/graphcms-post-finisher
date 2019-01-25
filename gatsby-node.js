@@ -27,7 +27,7 @@ exports.createPages = ({ graphql, actions }) => {
     }
 
     // We fetch the template for our event page.
-    const eventTemplate = path.resolve('./src/pages/event.js')
+    const eventTemplate = path.resolve('./src/templates/event.js')
 
     _.each(result.data.allEvent.edges, edge => {
       // for each edge of the node, we'll create a page
