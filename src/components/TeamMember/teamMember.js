@@ -2,12 +2,13 @@ import React from 'react'
 import styled from 'styled-components'
 
 const TeamMember = ({ data }) => {
-  const { name, gardenPartyHistory, profilePic, role } = data
+  const { name, gardenPartyHistory, profilePicture, role } = data
+  const { url } = profilePicture
 
   return (
     <MemberContent>
       <ContentWrapper>
-        <Image src={profilePic} />
+        <Image src={url} />
         <Description>
           <h3>{name}</h3>
           <p>{role}</p>

@@ -6,28 +6,26 @@ import BandImage from '../images/band-image.jpg'
 import Button from '../components/Button/button'
 import Layout from '../components/Layout/layout'
 import SEO from '../components/Seo/seo'
-import realFakeText from '../components/RealFakeText/realFakeText'
 
 const Event = ({ data: { event } }) => {
-  console.log('event', event);
   return (
     <Layout>
       <SEO title="event" tags={['music', 'event', 'paulette']} />
       <Background />
       <EventDescription>
-        <h1>Paulette</h1>
+        <h1>{event.name}</h1>
         <List>
-          <li>February 23rd</li>
+          <li>{event.eventTime}</li>
           <li>Garden Party</li>
-          <li>London, United Kingdom</li>
-          <li>16+</li>
+          <li>{event.postCode}</li>
+          <li>{event.minimumAge}</li>
         </List>
         <Button>Buy Tickets</Button>
       </EventDescription>
       <BandDescription>
-        <Paragraph>{realFakeText}</Paragraph>
+        <Paragraph>{event.eventDescription}</Paragraph>
         <br />
-        <Paragraph>{realFakeText}</Paragraph>
+        <Paragraph>{event.bandDescription}</Paragraph>
       </BandDescription>
     </Layout>
   )
@@ -40,7 +38,7 @@ export const query = graphql`
     event(id: { eq: $id }) {
       id
       name
-      eventTime
+      eventTime(formatString:"ddd DD MMM YY")
       postCode
       eventDescription
       minimumAge
