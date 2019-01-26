@@ -3,14 +3,12 @@ import { graphql } from 'gatsby'
 import styled from 'styled-components'
 import TeamMember from '../components/TeamMember/teamMember'
 import Layout from '../components/Layout/layout'
-import SEO from '../components/Seo/seo'
 
 const TeamPage = ({ data }) => {
   const { edges } = data.allTeamMember
 
   return (
     <Layout>
-      <SEO title="Meet the team" />
       <StyledHeader>Meet the team</StyledHeader>
       <MemberContainer>
         {edges.map(({ node }) => (

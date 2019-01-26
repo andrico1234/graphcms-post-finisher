@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Card from './Card/card';
 
 const CardList = ({ data }) => {
+  // consume the context here
   return (
     <StyledCardList>
       {data.map(({ node }) => (

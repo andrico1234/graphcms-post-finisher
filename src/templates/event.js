@@ -5,12 +5,10 @@ import { graphql } from 'gatsby'
 import BandImage from '../images/band-image.jpg'
 import Button from '../components/Button/button'
 import Layout from '../components/Layout/layout'
-import SEO from '../components/Seo/seo'
 
 const Event = ({ data: { event } }) => {
   return (
     <Layout>
-      <SEO title="event" tags={['music', 'event', 'paulette']} />
       <Background />
       <EventDescription>
         <h1>{event.name}</h1>
