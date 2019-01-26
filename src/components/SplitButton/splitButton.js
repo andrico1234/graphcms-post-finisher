@@ -1,27 +1,23 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 class SplitButton extends React.Component {
-  state = {
-    activeItem: 'right',
-  }
-
-  handleClick = buttonSide => {
-    this.setState({
-      activeItem: buttonSide,
-    })
-  }
-
   render() {
-    const { activeItem } = this.state
+    const { activeItem, handleClick } = this.props
 
     return (
       <StyledSplitButton>
         <SplitButtonWrapper>
-          <LeftButton isActive={activeItem === 'left'} onClick={() => this.handleClick('left')}>
+          <LeftButton
+            isActive={activeItem === 'past'}
+            onClick={() => handleClick('past')}
+          >
             past
           </LeftButton>
-          <RightButton isActive={activeItem === 'right'} onClick={() => this.handleClick('right')}>
+          <RightButton
+            isActive={activeItem === 'future'}
+            onClick={() => handleClick('future')}
+          >
             future
           </RightButton>
         </SplitButtonWrapper>
@@ -42,9 +38,12 @@ const SplitButtonWrapper = styled.div`
 `
 
 const SplitButtonDefaults = styled.button`
-  background-color: ${props => props.isActive ? '#e9e9e9' : 'white'}
+  background-color: ${props => (props.isActive ? '#e9e9e9' : 'white')}
   border: none;
-  box-shadow: ${props => props.isActive ? 'inset 0px 1px 6px 1px rgba(0,0,0,0.51)' : '0px 1px 2px 0px rgba(0,0,0,0.5)'}; 
+  box-shadow: ${props =>
+    props.isActive
+      ? 'inset 0px 1px 6px 1px rgba(0,0,0,0.51)'
+      : '0px 1px 2px 0px rgba(0,0,0,0.5)'}; 
   cursor: pointer;
   height: 48px;
   font-size: 24px;
@@ -58,12 +57,12 @@ const SplitButtonDefaults = styled.button`
 
 const LeftButton = styled(SplitButtonDefaults)`
   border-bottom-left-radius: 30px;
-  border-right: ${props => props.isActive ? '1px solid grey' : 'none'};
+  border-right: ${props => (props.isActive ? '1px solid grey' : 'none')};
   border-top-left-radius: 30px;
 `
 
 const RightButton = styled(SplitButtonDefaults)`
   border-bottom-right-radius: 30px;
-  border-left: ${props => props.isActive ? '1px solid grey' : 'none'};
+  border-left: ${props => (props.isActive ? '1px solid grey' : 'none')};
   border-top-right-radius: 30px;
 `

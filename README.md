@@ -182,7 +182,7 @@ allEvent {
       id
       name
       eventTime(formatString:"ddd DD MMM YY")
-      unformattedTime:eventTime
+      eventTimeDifferenceFromPresent:eventTime(difference:"miliseconds")
       eventThumbnail {
         url
       }
@@ -191,7 +191,7 @@ allEvent {
 }
 ```
 
-So there's some syntax in my query that we haven't come across yet. The first being the ability for Gatsby to format a time string inside of the query. This is functionality we get automatically when we set a field in GraphCMS with a type of date/time. This is the time format I've chosen for my site, but you can experiment and choose your own.
+So there's some syntax in my query that we haven't come across yet. The first being the ability for Gatsby to format a time string inside of the query. This is functionality we get automatically when we set a field in GraphCMS with a type of date/time. This is the time format I've chosen for my site, but you can experiment and choose your own. We're also pulling back the `eventTimeDifferenceFromPresent` which is going to return a negative number if the date is in the past, or a positive number if the date is in the future. This will be very helpful when getting our past/future button working at the end.
 
 If we want to separate our past events from our future events, we'll need an unprocessed date string to make the comparison. Because GraphQL doesn't allow us to request two fields with the same name in the same object. So you can see that I've renamed the second `eventTime` using the syntax `requestedFieldAlias:requestedField`. The alias can be any name you want it to be, and this will reflect on the data we retrieve back from the query.
 
@@ -239,9 +239,62 @@ And that should be it!
 
 ## Enabling the Past/Future feature
 
-The last part of the tutorial will cover displaying certain data based on the whether or not the event has already taken place. 
+This next section is completely optional. There's nothing new here pertaining to GraphQL, Gatsby, or GraphCMS. It's just the culmination of how we can leverage the tools we've got available to make work developing the rest of the app more seamless. This is best exemplified by how GraphCMS, GraphQL, and Gatsby work together to allow us to manipulate date strings. We can so easily format the string from something as obtuse as `2019-01-01T16:52:00.000Z` to `Tue 01 Jan 19` without having to pull in additional dependencies. This makes our past/future button much more easy to implement. Here's how to do it yourself:
+
+First off, I used the React.Context API to get this working due to how lightweight it is. I won't go in any more detail about the API than is necessary for this example. I would recommend some [reading](https://reactjs.org/docs/context.html) as the Context API is a great alternative to Redux and Apollo Local State. 
+
+Create a new directory in `src` called `context`, and inside of `context` create an `index.js` file. All we need is four lines of code here:
+
+```
+import React from 'react'
+
+const FilterContext = React.createContext()
+
+export const FilterConsumer = FilterContext.Consumer
+export const FilterProvider = FilterContext.Provider
+```
+
+We create a new context object, `FilterContext`, which will hold rthe current filter selection `past` or `future`. We then export two components, a consumer and provider. The consumer will wrap around our `Card` component, and expose the current filter value, while the provider will change the current value whenever we click the filter button. 
+
+In the `eventListing.js` file we import our `FilterProvider` component like so:
+
+```
+import { FilterProvider } from '../../context'
+```
+
+and wrap it around our component, giving it an attribute of `value` and a value of `activeItem`:
+
+```
+return (
+  <FilterProvider value={activeItem}>
+    ... other components
+  </FilterProvider>
+)
+```
+
+When we click our button now, the context changes. Any components that are consuming the context, like our `cardList` soon will, will rerender with the new data. 
+
+And finally, we need our `cardList` component to consume the context. Import the `FilterConsumer` component in the same way you imported the Provider.
+
+The `FilterConsumer` wraps around the component, and it also exposes the value via the render props pattern. I won't go into detail, but you can see it below:
+
+```
+<FilterConsumer>
+  {value => {
+    return (
+      <StyledCardList>
+        ... code to conditionally display the correct listing items
+      </StyledCardList>
+    )
+  }}
+</FilterConsumer>
+```
+
+99% of the work of the tutorial is done, but I don't want to spoil the rest for you. All you need to do now is implement the conditional logic that checks to see if `value` is set to `past` or `future`. If it is set to `past`, then only render the components whose `eventTimeDifferenceFromPresent` is less than 0. Do the opposite if the value is set to `future`. 
 
 ## Conclusion
+
+Good job if you got it working and good job if things didn't quite pan out, you've likely taken away something useful to use in your own projects. You can still refer to the [finished repo](https://github.com/andrico1234/graphcms-post-finisher) if you're interested.
 
 Gatsby, as a technology, feels very intuitive. The plugin system makes it very simple to integrate other services, like GraphCMS, with your codebase. Saying that, there have been many times I've been left stuck, even on concepts that I've covered in this article, so I hope it saves you from a few hours of frustration and confusion. 
 

@@ -1,16 +1,35 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Card from './Card/card';
+import { FilterConsumer } from '../../context/index'
+import Card from './Card/card'
 
 const CardList = ({ data }) => {
-  // consume the context here
   return (
-    <StyledCardList>
-      {data.map(({ node }) => (
-        <Card key={node.id} data={node} />
-      ))}
-    </StyledCardList>
+    <FilterConsumer>
+      {value => {
+        return (
+          <StyledCardList>
+            {data.map(({ node }) => {
+              if (value === 'past') {
+                return (
+                  node.eventTimeDifferenceFromPresent < 0 && (
+                    <Card key={node.id} data={node} />
+                  )
+                )
+              } else if (value === 'future') {
+                return (
+                  node.eventTimeDifferenceFromPresent >= 0 && (
+                    <Card key={node.id} data={node} />
+                  )
+                )
+              }
+              return <Card key={node.id} data={node} />
+            })}
+          </StyledCardList>
+        )
+      }}
+    </FilterConsumer>
   )
 }
 

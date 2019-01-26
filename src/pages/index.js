@@ -29,7 +29,7 @@ export const query = graphql`
           id
           name
           eventTime(formatString:"ddd DD MMM YY")
-          unformattedTime: eventTime
+          eventTimeDifferenceFromPresent:eventTime(difference:"miliseconds")
         }
       }
     }
