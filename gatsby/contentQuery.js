@@ -11,6 +11,13 @@ module.exports =`{
       id
       url
     }
+    artists {
+      name
+    }
+    eventThumbnail {
+      id
+      url
+    }
   }
   
   teamMembers {
