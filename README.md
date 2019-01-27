@@ -14,6 +14,8 @@ I'm hosting a workshop on getting a Gatsby application up and running from scrat
 
 Garden Party is a fictitious company that frequently hosts music concerts in a small garden stage. It's a good demo application that will get you used to consuming data from a GraphCMS endpoint. In a real-world application the GraphCMS content could be managed by a dedicated content team while you, the developer, hooks the website up to the endpoint, parses the data, and displays it. The majority of the application has already been created, but the data we use to display events and team members is mock data. To get the site fully functioning, we need to manage the content separately from the application code.
 
+The start repo can be found [here](https://github.com/andrico1234/graphcms-post-starter), clone the repo. Open the project up in your text editor and run `yarn` to install the repo's dependencies. You will also need to install the Gatsby CLI globally via `yarn global add gatsby`. 
+
 ## Graph data model
 
 Before we continue on to the article, I wanted to give a brief overview on how the graph data structure relates to our project. When we pull in of our events from GraphCMS, the GraphQL request will look like this:
